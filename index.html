@@ -7,20 +7,25 @@
     <style>
         /* สไตล์พื้นฐานเน้นความน่ารักแบบในคลิป */
         body { font-family: 'Kanit', sans-serif; background: linear-gradient(180deg, #ffeef2 0%, #ffc1d1 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
-        .card { background: white; width: 90%; max-width: 350px; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; position: relative; }
-        .heart-icon { font-size: 50px; color: #ff4d6d; margin-bottom: 20px; animation: heartbeat 1.5s infinite; }
+        .card { background: white; width: 90%; max-width: 350px; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; position: relative; }
+        
+        /* สไตล์รูปภาพคู่ */
+        .couple-img { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; margin-bottom: 15px; border: 5px solid #fff5f7; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        
+        .heart-icon { font-size: 40px; color: #ff4d6d; margin-bottom: 10px; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0% { transform: scale(1); } 20% { transform: scale(1.2); } 40% { transform: scale(1); } }
-        button { background: #ff4d6d; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 15px; width: 100%; }
-        button:hover { background: #c9184a; }
+        
+        button { background: #ff4d6d; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 15px; width: 100%; font-family: 'Kanit', sans-serif; }
+        button:hover { background: #c9184a; transform: scale(1.02); }
         
         /* หน้าใส่รหัส */
         .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
-        .num-btn { background: #f8f9fa; color: #333; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; border: 1px solid #eee; }
+        .num-btn { background: #f8f9fa; color: #333; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; border: 1px solid #eee; transition: 0.2s; }
         .num-btn:active { background: #ff4d6d; color: white; }
         
         /* หน้าเมนู */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .menu-item { background: #fff5f7; padding: 15px; border-radius: 20px; cursor: pointer; border: 1px solid #ffccd5; transition: 0.3s; font-size: 14px; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+        .menu-item { background: #fff5f7; padding: 15px 10px; border-radius: 20px; cursor: pointer; border: 1px solid #ffccd5; transition: 0.3s; font-size: 13px; font-weight: bold; color: #ff4d6d; }
         .menu-item:hover { transform: translateY(-5px); background: #ffccd5; }
         
         .hidden { display: none; }
@@ -29,16 +34,18 @@
 <body>
 
     <div id="page1" class="card">
+        <img src="public/images/ดาวน์โหลด.jpg" class="couple-img" alt="Our Photo">
         <div class="heart-icon">❤️</div>
-        <h2 style="color: #ff4d6d;">My Valentine</h2>
-        <p>สำหรับคนสำคัญของฉันคนเดียว</p>
-        <p style="font-size: 14px; color: #888;">"ของขวัญวาเลนไทน์ปีนี้ คือการมีเธออยู่ข้างๆ"</p>
+        <h2 style="color: #ff4d6d; margin: 10px 0;">My Valentine</h2>
+        <p style="margin: 5px 0;">สำหรับคนสำคัญของฉันคนเดียว</p>
+        <p style="font-size: 13px; color: #888; font-style: italic;">"ของขวัญวาเลนไทน์ปีนี้ คือการมีเธออยู่ข้างๆ"</p>
         <button onclick="showPage('page2')">ดูเรื่องราวของเรา</button>
     </div>
 
     <div id="page2" class="card hidden">
         <h3 style="color: #ff4d6d;">กรอกรหัสผ่าน</h3>
-        <p id="pass-display" style="font-size: 24px; letter-spacing: 5px; color: #ff4d6d;">_ _ _ _ _ _</p>
+        <p style="font-size: 14px; color: #888;">ใส่รหัสลับเพื่อปลดล็อก</p>
+        <p id="pass-display" style="font-size: 24px; letter-spacing: 5px; color: #ff4d6d; font-weight: bold; background: #fff5f7; padding: 10px; border-radius: 10px;">_ _ _ _ _ _</p>
         <div class="numpad">
             <div class="num-btn" onclick="pressNum(1)">1</div>
             <div class="num-btn" onclick="pressNum(2)">2</div>
@@ -56,13 +63,14 @@
     </div>
 
     <div id="page3" class="card hidden">
-        <h3 style="color: #ff4d6d;">เลือกเมนู</h3>
+        <img src="public/images/ดาวน์โหลด.jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 3px solid #ff4d6d; margin-bottom: 10px;" alt="Mini Photo">
+        <h3 style="color: #ff4d6d; margin: 0;">เมนูของเรา</h3>
         <div class="menu-grid">
-            <div class="menu-item" onclick="alert('แสดงรูปภาพของคุณที่นี่!')">📂 ความทรงจำ</div>
-            <div class="menu-item" onclick="alert('ข้อความจดหมายของคุณ...')">✉️ จดหมาย</div>
-            <div class="menu-item" onclick="alert('เริ่มทำแบบทดสอบกัน!')">📝 แบบทดสอบ</div>
-            <div class="menu-item" onclick="alert('เมนูทำช็อกโกแลต')">🍫 ช็อกโกแลต</div>
-            <div class="menu-item" onclick="alert('หน้าถ่ายรูปโพลารอยด์')">📸 โพลารอยด์</div>
+            <div class="menu-item" onclick="alert('แสดงความทรงจำ...')">📂 ความทรงจำ</div>
+            <div class="menu-item" onclick="alert('จดหมายถึงเธอ...')">✉️ จดหมาย</div>
+            <div class="menu-item" onclick="alert('ตอบคำถามกัน!')">📝 แบบทดสอบ</div>
+            <div class="menu-item" onclick="alert('ทำช็อกโกแลต')">🍫 ช็อกโกแลต</div>
+            <div class="menu-item" onclick="alert('โพลารอยด์')">📸 โพลารอยด์</div>
             <div class="menu-item" onclick="window.location.href='https://www.youtube.com/'">🎵 เพลงของเรา</div>
         </div>
         <button style="background:#888; margin-top:20px" onclick="showPage('page1')">กลับหน้าแรก</button>
@@ -70,7 +78,7 @@
 
     <script>
         let currentPass = "";
-        const correctPass = "123456"; // <-- แก้รหัสผ่านของคุณที่นี่
+        const correctPass = "123456"; // แก้รหัสผ่านตรงนี้
 
         function showPage(pageId) {
             document.querySelectorAll('.card').forEach(p => p.classList.add('hidden'));
@@ -96,7 +104,6 @@
 
         function checkPass() {
             if(currentPass === correctPass) {
-                alert("รหัสผ่านถูกต้อง!");
                 showPage('page3');
             } else {
                 alert("รหัสผ่านไม่ถูกต้อง ลองใหม่อีกครั้งนะ");
