@@ -5,110 +5,148 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Valentine - For the one I love</title>
     <style>
-        /* สไตล์พื้นฐานเน้นความน่ารักแบบในคลิป */
-        body { font-family: 'Kanit', sans-serif; background: linear-gradient(180deg, #ffeef2 0%, #ffc1d1 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
-        .card { background: white; width: 90%; max-width: 350px; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; position: relative; }
-        
-        /* สไตล์รูปภาพคู่ */
-        .couple-img { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; margin-bottom: 15px; border: 5px solid #fff5f7; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap');
+        body { font-family: 'Kanit', sans-serif; background: linear-gradient(180deg, #ffeef2 0%, #ffc1d1 100%); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        .card { background: white; width: 85%; max-width: 350px; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; position: relative; z-index: 10; max-height: 80vh; overflow-y: auto; }
+        .couple-img { width: 100%; height: 200px; object-fit: cover; border-radius: 20px; margin-bottom: 15px; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .heart-icon { font-size: 40px; color: #ff4d6d; margin-bottom: 10px; animation: heartbeat 1.5s infinite; }
         @keyframes heartbeat { 0% { transform: scale(1); } 20% { transform: scale(1.2); } 40% { transform: scale(1); } }
-        
-        button { background: #ff4d6d; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 15px; width: 100%; font-family: 'Kanit', sans-serif; }
+        button { background: #ff4d6d; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 10px; width: 100%; font-family: 'Kanit', sans-serif; }
         button:hover { background: #c9184a; transform: scale(1.02); }
-        
-        /* หน้าใส่รหัส */
         .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
-        .num-btn { background: #f8f9fa; color: #333; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; border: 1px solid #eee; transition: 0.2s; }
-        .num-btn:active { background: #ff4d6d; color: white; }
-        
-        /* หน้าเมนู */
+        .num-btn { background: #f8f9fa; color: #333; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer; border: 1px solid #eee; }
         .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-        .menu-item { background: #fff5f7; padding: 15px 10px; border-radius: 20px; cursor: pointer; border: 1px solid #ffccd5; transition: 0.3s; font-size: 13px; font-weight: bold; color: #ff4d6d; }
-        .menu-item:hover { transform: translateY(-5px); background: #ffccd5; }
-        
+        .menu-item { background: #fff5f7; padding: 15px 10px; border-radius: 20px; cursor: pointer; border: 1px solid #ffccd5; font-size: 13px; font-weight: bold; color: #ff4d6d; }
         .hidden { display: none; }
+        .floating-heart { position: fixed; top: -20px; z-index: 1; pointer-events: none; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh); } }
+        /* สไตล์พิเศษสำหรับช็อกโกแลต */
+        .choco-box { font-size: 50px; margin: 20px 0; background: #fdf0f3; padding: 20px; border-radius: 20px; }
     </style>
 </head>
 <body>
 
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="page1" class="card">
-        <img src="public/images/ดาวน์โหลด.jpg" class="couple-img" alt="Our Photo">
+        <img src="public/images/ดาวน์โหลด.jpg" class="couple-img">
         <div class="heart-icon">❤️</div>
-        <h2 style="color: #ff4d6d; margin: 10px 0;">My Valentine</h2>
-        <p style="margin: 5px 0;">สำหรับคนสำคัญของฉันคนเดียว</p>
-        <p style="font-size: 13px; color: #888; font-style: italic;">"ของขวัญวาเลนไทน์ปีนี้ คือการมีเธออยู่ข้างๆ"</p>
-        <button onclick="showPage('page2')">ดูเรื่องราวของเรา</button>
+        <h2 style="color: #ff4d6d;">My Valentine</h2>
+        <p>"ของขวัญวาเลนไทน์ปีนี้ คือการมีเธออยู่ข้างๆ"</p>
+        <button onclick="startWeb()">ดูเรื่องราวของเรา</button>
     </div>
 
     <div id="page2" class="card hidden">
         <h3 style="color: #ff4d6d;">กรอกรหัสผ่าน</h3>
-        <p style="font-size: 14px; color: #888;">ใส่รหัสลับเพื่อปลดล็อก</p>
         <p id="pass-display" style="font-size: 24px; letter-spacing: 5px; color: #ff4d6d; font-weight: bold; background: #fff5f7; padding: 10px; border-radius: 10px;">_ _ _ _ _ _</p>
         <div class="numpad">
-            <div class="num-btn" onclick="pressNum(1)">1</div>
-            <div class="num-btn" onclick="pressNum(2)">2</div>
-            <div class="num-btn" onclick="pressNum(3)">3</div>
-            <div class="num-btn" onclick="pressNum(4)">4</div>
-            <div class="num-btn" onclick="pressNum(5)">5</div>
-            <div class="num-btn" onclick="pressNum(6)">6</div>
-            <div class="num-btn" onclick="pressNum(7)">7</div>
-            <div class="num-btn" onclick="pressNum(8)">8</div>
-            <div class="num-btn" onclick="pressNum(9)">9</div>
-            <div class="num-btn" style="background:#eee" onclick="clearPass()">ลบ</div>
-            <div class="num-btn" onclick="pressNum(0)">0</div>
+            <div class="num-btn" onclick="pressNum(1)">1</div><div class="num-btn" onclick="pressNum(2)">2</div><div class="num-btn" onclick="pressNum(3)">3</div>
+            <div class="num-btn" onclick="pressNum(4)">4</div><div class="num-btn" onclick="pressNum(5)">5</div><div class="num-btn" onclick="pressNum(6)">6</div>
+            <div class="num-btn" onclick="pressNum(7)">7</div><div class="num-btn" onclick="pressNum(8)">8</div><div class="num-btn" onclick="pressNum(9)">9</div>
+            <div class="num-btn" style="background:#eee" onclick="clearPass()">ลบ</div><div class="num-btn" onclick="pressNum(0)">0</div>
             <div class="num-btn" style="background:#ff4d6d; color:white" onclick="checkPass()">ตกลง</div>
         </div>
     </div>
 
     <div id="page3" class="card hidden">
-        <img src="public/images/ดาวน์โหลด.jpg" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%; border: 3px solid #ff4d6d; margin-bottom: 10px;" alt="Mini Photo">
-        <h3 style="color: #ff4d6d; margin: 0;">เมนูของเรา</h3>
+        <h3 style="color: #ff4d6d;">เลือกเมนู</h3>
         <div class="menu-grid">
-            <div class="menu-item" onclick="alert('แสดงความทรงจำ...')">📂 ความทรงจำ</div>
-            <div class="menu-item" onclick="alert('จดหมายถึงเธอ...')">✉️ จดหมาย</div>
-            <div class="menu-item" onclick="alert('ตอบคำถามกัน!')">📝 แบบทดสอบ</div>
-            <div class="menu-item" onclick="alert('ทำช็อกโกแลต')">🍫 ช็อกโกแลต</div>
-            <div class="menu-item" onclick="alert('โพลารอยด์')">📸 โพลารอยด์</div>
+            <div class="menu-item" onclick="showPage('page-memory')">📂 ความทรงจำ</div>
+            <div class="menu-item" onclick="showPage('page-letter')">✉️ จดหมาย</div>
+            <div class="menu-item" onclick="showPage('page-quiz')">📝 แบบทดสอบ</div>
+            <div class="menu-item" onclick="showPage('page-choco')">🍫 ทำช็อกโกแลต</div>
+            <div class="menu-item" onclick="showPage('page-polaroid')">📸 โพลารอยด์</div>
             <div class="menu-item" onclick="window.location.href='https://www.youtube.com/'">🎵 เพลงของเรา</div>
         </div>
-        <button style="background:#888; margin-top:20px" onclick="showPage('page1')">กลับหน้าแรก</button>
+    </div>
+
+    <div id="page-letter" class="card hidden">
+        <h3 style="color: #ff4d6d;">จดหมายถึงเธอ</h3>
+        <p style="font-size: 14px; text-align: left; line-height: 1.6; color: #555;">
+            ถึง...(ชื่อแฟน)...<br><br>
+            อยากบอกว่าขอบคุณนะที่น่ารักแบบนี้เสมอเลย... (เขียนความในใจตรงนี้)
+        </p>
+        <button onclick="showPage('page3')">กลับไปหน้าเมนู</button>
+    </div>
+
+    <div id="page-memory" class="card hidden">
+        <h3 style="color: #ff4d6d;">ความทรงจำของเรา</h3>
+        <img src="public/images/ดาวน์โหลด.jpg" class="couple-img">
+        <p style="font-size: 14px;">รูปนี้คือตอนที่เราอยู่ด้วยกันวันนั้นนะ...</p>
+        <button onclick="showPage('page3')">กลับไปหน้าเมนู</button>
+    </div>
+
+    <div id="page-quiz" class="card hidden">
+        <h3 style="color: #ff4d6d;">แบบทดสอบความรัก</h3>
+        <p id="question">เราเจอกันครั้งแรกที่ไหน?</p>
+        <button onclick="checkQuiz(true)">ที่โรงเรียน</button>
+        <button onclick="checkQuiz(false)">ที่ห้าง</button>
+        <p id="quiz-msg" style="margin-top:10px; color: #ff4d6d;"></p>
+        <button style="background:#888" onclick="showPage('page3')">ยกเลิก</button>
+    </div>
+
+    <div id="page-choco" class="card hidden">
+        <h3 style="color: #ff4d6d;">ทำช็อกโกแลตให้เธอ</h3>
+        <div id="choco-display" class="choco-box">🍫</div>
+        <p>เลือก Topping:</p>
+        <div style="display:flex; gap:10px;">
+            <button onclick="addTopping('🍓')">🍓</button>
+            <button onclick="addTopping('🥜')">🥜</button>
+            <button onclick="addTopping('✨')">✨</button>
+        </div>
+        <button style="background:#888; margin-top:20px" onclick="showPage('page3')">เสร็จแล้ว</button>
+    </div>
+
+    <div id="page-polaroid" class="card hidden">
+        <div style="background:#eee; padding:10px; border-bottom:30px solid #eee;">
+             <img src="public/images/ดาวน์โหลด.jpg" style="width:100%; height:auto;">
+        </div>
+        <p style="font-family: 'Dancing Script', cursive; margin-top:10px;">Forever & Always ❤️</p>
+        <button onclick="showPage('page3')">กลับ</button>
     </div>
 
     <script>
         let currentPass = "";
-        const correctPass = "123456"; // แก้รหัสผ่านตรงนี้
+        const correctPass = "123456"; 
 
         function showPage(pageId) {
             document.querySelectorAll('.card').forEach(p => p.classList.add('hidden'));
             document.getElementById(pageId).classList.remove('hidden');
         }
 
-        function pressNum(n) {
-            if(currentPass.length < 6) {
-                currentPass += n;
-                updatePassDisplay();
-            }
+        function startWeb() {
+            document.getElementById('bg-music').play();
+            showPage('page2');
+            setInterval(createHeart, 400);
         }
 
-        function clearPass() {
-            currentPass = "";
-            updatePassDisplay();
+        function pressNum(n) { if(currentPass.length < 6) { currentPass += n; updatePassDisplay(); } }
+        function clearPass() { currentPass = ""; updatePassDisplay(); }
+        function updatePassDisplay() { document.getElementById("pass-display").innerText = currentPass.padEnd(6, "_").split("").join(" "); }
+        function checkPass() { if(currentPass === correctPass) { showPage('page3'); } else { alert("รหัสผิดจ้าาา"); clearPass(); } }
+
+        function checkQuiz(isCorrect) {
+            const msg = document.getElementById('quiz-msg');
+            if(isCorrect) { msg.innerText = "เก่งมาก! ตอบถูกด้วย ❤️"; }
+            else { msg.innerText = "ผิดแล้ว! จำไม่ได้หรอ 🥺"; }
         }
 
-        function updatePassDisplay() {
-            let display = currentPass.padEnd(6, "_").split("").join(" ");
-            document.getElementById("pass-display").innerText = display;
+        function addTopping(t) {
+            document.getElementById('choco-display').innerText = "🍫" + t;
         }
 
-        function checkPass() {
-            if(currentPass === correctPass) {
-                showPage('page3');
-            } else {
-                alert("รหัสผ่านไม่ถูกต้อง ลองใหม่อีกครั้งนะ");
-                clearPass();
-            }
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.opacity = Math.random();
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
         }
     </script>
 </body>
